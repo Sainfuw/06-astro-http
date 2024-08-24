@@ -6,7 +6,7 @@ export const prerender = false
 export const GET: APIRoute = async ({ params, request, cookies }) => {
   const { slug } = params
 
-  const post = await getEntry('blog', slug)
+  const post = await getEntry('blog', slug as any)
 
   if (!post) {
     return new Response('Not found', { status: 404 })
@@ -19,8 +19,7 @@ export const GET: APIRoute = async ({ params, request, cookies }) => {
   })
 }
 
-export const POST: APIRoute = async ({ params, request, cookies }) => {
-  console.log({ cookies })
+export const POST: APIRoute = async ({ params, request }) => {
   const body = await request.json()
   return new Response(JSON.stringify(body))
 }
